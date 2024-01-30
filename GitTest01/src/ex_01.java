@@ -12,6 +12,8 @@ public class ex_01 {
 		System.out.println("내일 오전 9시 30분부터 팀장 없어요 화이팅");
 		
 		System.out.println("얼른 오세요");
+		
+		System.out.println("test1");
 	}
 
 }
