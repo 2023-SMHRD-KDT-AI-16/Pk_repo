@@ -8,8 +8,10 @@ public class ex_01 {
 		System.out.println("팀원2 세번째 커밋!");
 		System.out.println("헤헤 네번째 커밋!!");
 		
-		
 		System.err.println("내일 점심은 소세지 야채 볶음밥");
+		
+		System.out.println("내일 오전 9시 30분부터 팀장 없어요 화이팅");
+		
 	
 	}
 
