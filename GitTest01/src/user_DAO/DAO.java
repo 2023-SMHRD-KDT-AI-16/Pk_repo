@@ -11,10 +11,12 @@ import java.util.Scanner;
 import user_DTO.DTO;
 
 public class DAO {
+
    private Connection conn;
    private PreparedStatement psmt;
    private ResultSet rs;
    Scanner sc = new Scanner(System.in);
+
 
 
    // 경과 시간구하는 메소드
