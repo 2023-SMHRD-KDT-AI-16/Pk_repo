@@ -15,7 +15,7 @@ public class DAO {
 	private PreparedStatement psmt;
 	private ResultSet rs;
 	Scanner sc = new Scanner(System.in);
-
+	
 
 	// 경과 시간구하는 메소드
 	public void elapse_time(Long time1, Long time2) {
