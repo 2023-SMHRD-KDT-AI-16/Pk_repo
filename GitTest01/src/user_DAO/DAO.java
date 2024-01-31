@@ -6,14 +6,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Scanner;
+
+import user_DTO.DTO;
 
 public class DAO {
 	private Connection conn;
 	private PreparedStatement psmt;
 	private ResultSet rs;
 	Scanner sc = new Scanner(System.in);
-	private PreparedStatement psmt;
-	private ResultSet rs;
+
 
 	// 경과 시간구하는 메소드
 	public void elapse_time(Long time1, Long time2) {
