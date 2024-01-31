@@ -11,181 +11,184 @@ import java.util.Scanner;
 import user_DTO.DTO;
 
 public class DAO {
-	private Connection conn;
-	private PreparedStatement psmt;
-	private ResultSet rs;
-	Scanner sc = new Scanner(System.in);
-	
 
-	// 경과 시간구하는 메소드
-	public void elapse_time(Long time1, Long time2) {
-		long elapsetime = time2 - time1;
-		int second = (int) elapsetime / 1000;
-		int millis = (int) elapsetime % 1000;
-		double test = second + ((double) millis / 1000);
-		System.out.println(test);
 
-	}
+   private Connection conn;
+   private PreparedStatement psmt;
+   private ResultSet rs;
+   Scanner sc = new Scanner(System.in);
 
-	public long nowtime() {
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		return timestamp.getTime();
-	}
 
-	// 연결메소드
-	public void getConn() {
 
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String user = "mp_21K_bigdata22_p1_3";
-			String pw = "smhrd3";
-			String url = "jdbc:oracle:thin:@project-db-campus.smhrd.com:1523:xe";
+   // 경과 시간구하는 메소드
+   public void elapse_time(Long time1, Long time2) {
+      long elapsetime = time2 - time1;
+      int second = (int) elapsetime / 1000;
+      int millis = (int) elapsetime % 1000;
+      double test = second + ((double) millis / 1000);
+      System.out.println(test);
 
-			conn = DriverManager.getConnection(url, user, pw);
+   }
 
-			if (conn != null) {
+   public long nowtime() {
+      Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+      return timestamp.getTime();
+   }
 
-				System.out.println("연결성공");
-			} else {
-				System.out.println("연결실패");
-			}
+   // 연결메소드
+   public void getConn() {
 
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+      try {
+         Class.forName("oracle.jdbc.driver.OracleDriver");
+         String user = "mp_21K_bigdata22_p1_3";
+         String pw = "smhrd3";
+         String url = "jdbc:oracle:thin:@project-db-campus.smhrd.com:1523:xe";
 
-	}
+         conn = DriverManager.getConnection(url, user, pw);
 
-	// CLOSE 메소드
-	private void allClose() {
-		try {
-			if (rs != null)
-				rs.close();
-			if (psmt != null)
-				psmt.close();
-			if (conn != null)
-				conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+         if (conn != null) {
 
-	}
+            System.out.println("연결성공");
+         } else {
+            System.out.println("연결실패");
+         }
 
-	// 삭제 메소드
+      } catch (ClassNotFoundException | SQLException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
 
-	public int delete(String delete_member) {
+   }
 
-		getConn();
+   // CLOSE 메소드
+   private void allClose() {
+      try {
+         if (rs != null)
+            rs.close();
+         if (psmt != null)
+            psmt.close();
+         if (conn != null)
+            conn.close();
+      } catch (SQLException e) {
+         e.printStackTrace();
+      }
 
-		try {
+   }
 
-			// sql통과 통로
-			String sql = "delete from member where ID = ?";
-			psmt = conn.prepareStatement(sql);
+   // 삭제 메소드
 
-			// ?채우기 - ?가 없으면 생략
-			psmt.setString(1, delete_member);
-			// sql통과 하세요!
-			int row = psmt.executeUpdate();
-			if (row > 0) {
-				System.out.println("삭제성공");
-			} else {
-				System.out.println("삭제실패");
-			}
+   public int delete(String delete_member) {
 
-			return row;
+      getConn();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return 0;
-		} finally {
-			allClose();
+      try {
 
-		}
+         // sql통과 통로
+         String sql = "delete from member where ID = ?";
+         psmt = conn.prepareStatement(sql);
 
-	}
+         // ?채우기 - ?가 없으면 생략
+         psmt.setString(1, delete_member);
+         // sql통과 하세요!
+         int row = psmt.executeUpdate();
+         if (row > 0) {
+            System.out.println("삭제성공");
+         } else {
+            System.out.println("삭제실패");
+         }
 
-	// 아이디중복확인
+         return row;
 
-	public boolean checkId(String id) {
+      } catch (SQLException e) {
+         e.printStackTrace();
+         return 0;
+      } finally {
+         allClose();
 
-		getConn();
-		String sql = "SELECT COUNT(ID) FROM member WHERE ID = ?";
-		try {
+      }
 
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, id);
-			rs = psmt.executeQuery();
+   }
 
-			rs.next();
-			if (rs.getInt(1) == 1) {
-				System.out.println("아이디 중복");
-				return true;
-			}
+   // 아이디중복확인
 
-		} catch (SQLException e) {
+   public boolean checkId(String id) {
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			allClose();
-		}
-		return false;
-	}
+      getConn();
+      String sql = "SELECT COUNT(ID) FROM member WHERE ID = ?";
+      try {
 
-	// 회원가입
+         psmt = conn.prepareStatement(sql);
+         psmt.setString(1, id);
+         rs = psmt.executeQuery();
 
-	public int joinmember(DTO dto) {
+         rs.next();
+         if (rs.getInt(1) == 1) {
+            System.out.println("아이디 중복");
+            return true;
+         }
 
-		getConn(); // 연결먼저 해주고 나서
+      } catch (SQLException e) {
 
-		// sql 통로 뚫어주고(conn.prepareStatement)
-		String sql = "insert into member values(?,?,?)";
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         allClose();
+      }
+      return false;
+   }
 
-		try {
-			psmt = conn.prepareStatement(sql);
-			// ?채우기
-			psmt.setString(1, dto.getId());
-			psmt.setString(2, dto.getPassword());
-			psmt.setString(3, dto.getNickname());
+   // 회원가입
 
-			// sql통과시키기
-			int row = psmt.executeUpdate();
-			return row;
+   public int joinmember(DTO dto) {
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return 0;
-		} finally {
-			allClose();
-		}
+      getConn(); // 연결먼저 해주고 나서
 
-	}
+      // sql 통로 뚫어주고(conn.prepareStatement)
+      String sql = "insert into member values(?,?,?)";
 
-	// 로그인
-	public boolean login(String id, String pw) {
-		String sql = "select * from member where id=? and pw =?";
-		try {
-			getConn();
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, id);
-			psmt.setString(2, pw);
-			rs = psmt.executeQuery();
-			if (rs.next()) {
-				return true;
-			}
-			return false;
+      try {
+         psmt = conn.prepareStatement(sql);
+         // ?채우기
+         psmt.setString(1, dto.getId());
+         psmt.setString(2, dto.getPassword());
+         psmt.setString(3, dto.getNickname());
 
-		} catch (SQLException e) {
-			System.out.println("login 오류");
-		} finally {
-			allClose();
-		}
+         // sql통과시키기
+         int row = psmt.executeUpdate();
+         return row;
 
-		return false;
+      } catch (SQLException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+         return 0;
+      } finally {
+         allClose();
+      }
 
-	}
+   }
+
+   // 로그인
+   public boolean login(String id, String pw) {
+      String sql = "select * from member where id=? and pw =?";
+      try {
+         getConn();
+         psmt = conn.prepareStatement(sql);
+         psmt.setString(1, id);
+         psmt.setString(2, pw);
+         rs = psmt.executeQuery();
+         if (rs.next()) {
+            return true;
+         }
+         return false;
+
+      } catch (SQLException e) {
+         System.out.println("login 오류");
+      } finally {
+         allClose();
+      }
+
+      return false;
+
+   }
 
 }
