@@ -104,6 +104,8 @@ public class View {
 				
 				if(input_num_menu == 1) { //샌드위치 선택시
 					
+					
+					
 				ArrayList <MenuDTO> mdto = dao.sandwichList();
 				int[]rdnum =dao.Randomnum();
 				for(int i =0;i<10;i++) {

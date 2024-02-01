@@ -69,14 +69,7 @@ public class View {
 				int input_num_menu = sc.nextInt(); // 사용자가 선택한 메뉴
 				
 				if (input_num_menu == 1) {
-					ArrayList<MenuDTO> mdto = new ArrayList<MenuDTO>();
-					Random rd = new Random();
-					for (int i = 0; i < mdto.size(); i++) {
-						int j=rd.nextInt(25)+1 ;
-						
-						
-						
-					}
+					
 					
 					
 					
