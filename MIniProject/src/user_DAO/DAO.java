@@ -13,7 +13,7 @@ public class DAO {
 	private Connection conn;
 	private PreparedStatement psmt;
 	private ResultSet rs;
-	
+
 	// 연결메소드
 	public void getConn() {
 
@@ -22,7 +22,7 @@ public class DAO {
 			String user = "mp_21K_bigdata22_p1_3";
 			String pw = "smhrd3";
 			String url = "jdbc:oracle:thin:@project-db-campus.smhrd.com:1523:xe";
-			
+
 			conn = DriverManager.getConnection(url, user, pw);
 
 			if (conn != null) {
@@ -53,7 +53,7 @@ public class DAO {
 		}
 
 	}
-	
+
 	public ArrayList<MenuDTO> sandwichList(String 샌드위치) {
 		
 		ArrayList<MenuDTO> menuList = new ArrayList<MenuDTO>();
@@ -84,32 +84,78 @@ public class DAO {
 			return null;
 		}finally {
 			allClose();
+			
 		}
-		
+	}
+
+	public ArrayList<MenuDTO> PizzaList(String 피자) {
+
+		ArrayList<MenuDTO> menuList = new ArrayList<MenuDTO>();
+
+		String sql = "select 재료 from 재료 where  요리명 = '피자'";
+
+		try {
+			psmt = conn.prepareStatement(sql);
+
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				String 요리명 = rs.getString(1);
+				String 분류 = rs.getString(2);
+				String 재료 = rs.getString(3);
+
+				MenuDTO mdto = new MenuDTO(요리명, 분류, 재료);
+
+				menuList.add(mdto);
+			}
+			return menuList;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} finally {
+			allClose();
+		}
+
+	}
+	
+	public ArrayList<MenuDTO> nabeList(String 나베) {
+
+		ArrayList<MenuDTO> menuList = new ArrayList<MenuDTO>();
+
+		String sql = "select 재료 from 재료 where  요리명 = '나베'";
+
+		try {
+			psmt = conn.prepareStatement(sql);
+
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				String 요리명 = rs.getString(1);
+				String 분류 = rs.getString(2);
+				String 재료 = rs.getString(3);
+
+				MenuDTO mdto = new MenuDTO(요리명, 분류, 재료);
+
+				menuList.add(mdto);
+			}
+			return menuList;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} finally {
+			allClose();
+		}
+
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	 //PICKACARD
-	   
-	 //랜덤 재료 출력 메소드
+	// PICKACARD
+
+	// 랜덤 재료 출력 메소드
 //	  private static void pickacard() {
 //		   //pizzatime pzt 는 재료들이 들어간곳 나중에 수정
 //	      pizzatime pzt = new pizzatime();
@@ -155,9 +201,5 @@ public class DAO {
 //	      System.out.println(list); // 배열출력
 //
 //	   }
-	
-	
-	
-	
-	
+
 }

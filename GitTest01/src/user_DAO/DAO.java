@@ -363,7 +363,7 @@ public class DAO {
 		   
 	   }
 	   
-	 
+	   // 샌드위치 재료 메소드
 		public ArrayList<MenuDTO> sandwichList(String 샌드위치) {
 			
 			ArrayList<MenuDTO> menuList = new ArrayList<MenuDTO>();
@@ -396,5 +396,71 @@ public class DAO {
 				allClose();
 			}
 	   
+		}
+		
+		// 피자 재료 메소드
+		public ArrayList<MenuDTO> PizzaList(String 피자) {
+
+			ArrayList<MenuDTO> menuList = new ArrayList<MenuDTO>();
+
+			String sql = "select 재료 from 재료 where  요리명 = '피자'";
+
+			try {
+				psmt = conn.prepareStatement(sql);
+
+				rs = psmt.executeQuery();
+
+				while (rs.next()) {
+					String 요리명 = rs.getString(1);
+					String 분류 = rs.getString(2);
+					String 재료 = rs.getString(3);
+
+					MenuDTO mdto = new MenuDTO(요리명, 분류, 재료);
+
+					menuList.add(mdto);
+				}
+				return menuList;
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			} finally {
+				allClose();
+			}
+
+		}
+		
+		// 나베 재료 메소드
+		public ArrayList<MenuDTO> nabeList(String 나베) {
+
+			ArrayList<MenuDTO> menuList = new ArrayList<MenuDTO>();
+
+			String sql = "select 재료 from 재료 where  요리명 = '나베'";
+
+			try {
+				psmt = conn.prepareStatement(sql);
+
+				rs = psmt.executeQuery();
+
+				while (rs.next()) {
+					String 요리명 = rs.getString(1);
+					String 분류 = rs.getString(2);
+					String 재료 = rs.getString(3);
+
+					MenuDTO mdto = new MenuDTO(요리명, 분류, 재료);
+
+					menuList.add(mdto);
+				}
+				return menuList;
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			} finally {
+				allClose();
+			}
+
 		}
 }
