@@ -149,10 +149,11 @@ public class View {
 							System.out.println("------------------------------------------------");
 				   }
 				   
-						
+				   }		
 			} else if (input_main_num == 5) {// 종료하기
-//				time2 = dao.nowtime();// 게임 끝날때 시간
-//				dao.elapse_time(time1, time2); // 경과 시간 출력
+			time2 = dao.nowtime();// 게임 끝날때 시간
+				dao.elapse_time(time1, time2); // 경과 시간 출력
+				System.out.println("종료합니다");
 				break;
 				
 			} else { // 잘못된 번호 입력
@@ -163,4 +164,4 @@ public class View {
 
 	}
 
-}}
+}
