@@ -238,10 +238,14 @@ public class View {
 
 			} else if (input_main_num == 5) {// 종료하기
 
-			time2 = dao.nowtime();// 게임 끝날때 시간
+			
 
-				dao.elapse_time(time1, time2); // 경과 시간 출력
-				System.out.println("종료합니다");
+			System.out.println("            	 ┌───────────────┐   ");
+			System.out.println("                      종료합니다....        ");
+		    System.out.println("                 └───────────────┘  ");
+		    System.out.println("                    	ᕱ ᕱ ||       ");
+		    System.out.println("                       ( ･ω･ ||         ");
+			System.out.println("                     　 /　つΦ          ");
 				break;
 			} else { // 잘못된 번호 입력
 				System.out.println(">>잘못된 입력입니다.");

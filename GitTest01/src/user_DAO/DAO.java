@@ -349,12 +349,11 @@ public class DAO {
 
 			while (rs.next()) {
 				String nick = rs.getString(1);
-				Date playdate = rs.getDate(2);
-				String score = rs.getString(3);
-				int time = rs.getInt(4);
-				String id = rs.getString(5);
+				String score = rs.getString(2);
+				int time = rs.getInt(3);
+				String id = rs.getString(4);
 
-				ScoreDTO sdto = new ScoreDTO(nick, playdate, score, time, id);
+				ScoreDTO sdto = new ScoreDTO(nick, score, time, id);
 				sdtoList.add(sdto);
 			}
 			return sdtoList;
@@ -373,20 +372,19 @@ public class DAO {
 		try {
 			getConn();
 			ArrayList<ScoreDTO> sdtoList = new ArrayList<>();
-			String sql = "SELECT * FROM (SELECT * FROM MEMBERSCORE WHERE ID =? " + "ORDER BY PLAYDATE DESC) "
-					+ "WHERE ROWNUM<=10";
+			String sql = "SELECT * FROM (SELECT * FROM MEMBERSCORE WHERE ID =? ORDER BY SCORE DESC, TIME ASC) WHERE ROWNUM<=5 ";
+					
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, userid);
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
 				String nick = rs.getString(1);
-				Date playdate = rs.getDate(2);
-				String score = rs.getString(3);
-				int time = rs.getInt(4);
-				String id = rs.getString(5);
+				String score = rs.getString(2);
+				int time = rs.getInt(3);
+				String id = rs.getString(4);
 
-				ScoreDTO sdto = new ScoreDTO(nick, playdate, score, time, id);
+				ScoreDTO sdto = new ScoreDTO(nick, score, time, id);
 				sdtoList.add(sdto);
 			}
 			return sdtoList;
