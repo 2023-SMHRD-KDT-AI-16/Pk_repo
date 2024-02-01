@@ -501,7 +501,7 @@ public class DAO {
 		}
 
 	}
-
+	//중복없이 랜덤으로 값 추출
 	public int[] Randomnum() {
 		// 중복없이 랜덤값 저장
 		int[] nums = new int[10];
@@ -518,4 +518,20 @@ public class DAO {
 		}
 		return nums;
 	}
+	
+	//점수계산 메소드
+		public int sumscore(String [] inputString,ArrayList <MenuDTO> mdto) {
+			int score =0;
+			for(int i = 0; i<inputString.length;i++) {
+				for(int j = 0; j<mdto.size();j++) {
+					if(inputString[i].equals(mdto.get(j).get재료())){
+						score += mdto.get(j).get점수();
+					}
+				}
+				
+			}return score;
+		}
+	
+	
+	
 }
