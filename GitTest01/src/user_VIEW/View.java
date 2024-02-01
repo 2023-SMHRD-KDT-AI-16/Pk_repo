@@ -3,17 +3,19 @@ package user_VIEW;
 import java.util.Scanner;
 
 import user_DAO.DAO;
+import user_DTO.DTO;
 
 public class View {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		DAO dao = new DAO();
-
+		String input_id = null;
+		String input_pw = null;
 		long millis = System.currentTimeMillis();
 		long time1 = 0;
 		long time2 = 0;
-
+		int logcheck=0;
 		System.out.println();
 		System.out.println("               ╔═╗┌─┐┬─┐┌┬┐┌─┐┌┐┌  ╦═╗┌─┐┌┬┐┌─┐┌─┐┬ ┬");
 		System.out.println("               ║ ╦│ │├┬┘ │││ ││││  ╠╦╝├─┤│││└─┐├─┤└┬┘");
@@ -35,30 +37,51 @@ public class View {
 			if (input_main_num == 1) { // 로그인
 				System.out.println("=========================================================================");
 
-				System.out.println("  <로그인>");
-				System.out.print("ID : ");
-				String input_id = sc.next();
-				System.out.print("PW : ");
-				String input_pw = sc.next();
-
-				while (dao.login(input_id, input_pw) == false) {
+				
+				boolean run = true;
+				while (run) {
 					System.out.println("  <로그인>");
 					System.out.print("ID : ");
 					input_id = sc.next();
 					System.out.print("PW : ");
 					input_pw = sc.next();
-					dao.login(input_id, input_pw);
+					run=dao.login(input_id, input_pw);
+					if(run == false) break;
 					
 				}
 
-			} else if (input_main_num == 2) { // 회원가입
+
+			} else if (input_main_num == 2) { 
 
 				System.out.println("=========================================================================");
 				System.out.println("  <회원가입>");
-				System.out.println("ID : ");
+				while (true) {
+			         System.out.print("이름을 입력하세요 :");
+			         String join_id = sc.next();
+			         if (dao.checkId(join_id) == false) {
+			            System.out.print("비밀번호를 입력하세요 :");
+			            String join_pw = sc.next();
 
-				System.out.println("PW : ");
+			            System.out.print("닉네임을 입력하세요 :");
+			            String join_nick = sc.next();
 
+			            // insert문
+
+			            DTO pdto = new DTO(join_id, join_pw, join_nick);
+
+			            int row = dao.joinmember(pdto);
+
+			            if (row > 0) {
+			               System.out.println("입력성공");
+			               break;
+			            } else {
+			               System.out.println("입력실패");
+			            }
+
+			         } else {
+			            System.out.println("id가중복되었습니다.");
+			         }
+				}
 			} else if (input_main_num == 3) {// 게임시작
 				time1 = dao.nowtime(); // time1 게임시작 시간
 				System.out.println("=========================================================================");

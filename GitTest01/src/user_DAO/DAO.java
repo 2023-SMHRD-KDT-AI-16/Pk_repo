@@ -53,7 +53,7 @@ public class DAO {
 
 			if (conn != null) {
 
-				System.out.println("연결성공");
+				//System.out.println("연결성공");
 			} else {
 				System.out.println("연결실패");
 			}
@@ -170,6 +170,7 @@ public class DAO {
 
 	// 로그인
 	public boolean login(String id, String pw) {
+		System.out.println("hi");
 		String sql = "select * from member where id=? and pw =?";
 		try {
 			getConn();
@@ -179,10 +180,11 @@ public class DAO {
 			rs = psmt.executeQuery();
 			if (rs.next()) {
 				System.out.println("로그인 성공!");
-				return true;
+				return false;
 			}
 			System.out.println("로그인 실패!");
-			return false;
+			return true;
+			
 
 		} catch (SQLException e) {
 			System.out.println("login 오류");
