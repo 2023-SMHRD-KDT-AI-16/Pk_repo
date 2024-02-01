@@ -4,13 +4,29 @@ public class MenuDTO {
 
 	String 요리명, 분류, 재료;
 	
-	public MenuDTO(String 요리명, String 분류, String 재료) {
+int 점수;
+	
+	public MenuDTO(String 요리명, String 분류, String 재료 ,int 점수) {
 		super();
 		this.분류 = 분류;
 		this.요리명 = 요리명;
 		this.재료 = 재료;
+		this.점수 = 점수;
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public int get점수() {
+		return 점수;
+	}
+
+
+
+	public void set점수(int 점수) {
+		this.점수 = 점수;
+	}
+
 
 	public String get요리명() {
 		return 요리명;
