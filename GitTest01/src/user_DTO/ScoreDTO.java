@@ -1,7 +1,5 @@
 package user_DTO;
 
-import java.sql.Date;
-
 public class ScoreDTO {
 	String nickname;
 	String score;
@@ -56,5 +54,6 @@ public class ScoreDTO {
 	
 	
 	
-	
+
 }
+
