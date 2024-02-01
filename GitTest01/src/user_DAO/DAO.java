@@ -126,7 +126,7 @@ public class DAO {
 
 			rs.next();
 			if (rs.getInt(1) == 1) {
-				System.out.println("아이디 중복");
+				
 				return true;
 			}
 

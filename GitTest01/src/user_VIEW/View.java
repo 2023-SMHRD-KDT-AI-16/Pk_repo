@@ -121,6 +121,8 @@ public class View {
 
 			} else if (input_main_num == 5) {// 종료하기
 				time2 = dao.nowtime();// 게임 끝날때 시간
+				
+				
 				dao.elapse_time(time1, time2); // 경과 시간 출력
 
 				break;
