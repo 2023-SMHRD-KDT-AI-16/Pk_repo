@@ -12,11 +12,12 @@ public class View {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		
+		String nickname = null;
 		DAO dao = new DAO();
 		String input_id = null;
 		String input_pw = null;
 		long millis = System.currentTimeMillis();
+		int count = 0;
 		long time1 = 0;
 		long time2 = 0;
 		int logcheck = 0;
@@ -40,13 +41,32 @@ public class View {
 
 			if (input_main_num == 1) { // 로그인
 				System.out.println("=========================================================================");
-				System.out.println("  <로그인>");
-				System.out.print("ID : ");
-				input_id = sc.next();
-				System.out.print("PW : ");
-				input_pw = sc.next();
-				dao.loginCheck(input_id, input_pw);
+				boolean run = true;
+				while (run) {
+					System.out.println("  <로그인>");
+					System.out.print("ID : ");
+					input_id = sc.next();
+					System.out.print("PW : ");
+					input_pw = sc.next();
+					run=dao.login(input_id, input_pw);
+					if(run == false) break;
+					if(run == true) {count++;}
+					if(count>3) {
+						System.out.println("로그인실패!");break;}
+					System.out.println(count+"/3");
+				}
 				
+				
+				
+				
+				
+				//				System.out.println("  <로그인>");
+//				System.out.print("ID : ");
+//				input_id = sc.next();
+//				System.out.print("PW : ");
+//				input_pw = sc.next();
+//				dao.loginCheck(input_id, input_pw);
+//				System.out.println(nickname);
 
 			} else if (input_main_num == 2) {
 
