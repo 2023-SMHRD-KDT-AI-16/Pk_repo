@@ -3,7 +3,6 @@ package user_DAO;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -223,51 +222,51 @@ public class DAO {
 	// PICKACARD
 
 	// 랜덤 재료 출력 메소드
-//	  private static void pickacard() {
-//		   //pizzatime pzt 는 재료들이 들어간곳 나중에 수정
-//	      pizzatime pzt = new pizzatime();
-//	      ArrayList<String> list = new ArrayList<String>();
-//	      int count = pzt.ingredients.length; // 재료
-//	      int count2 = pzt.sauce.length; // 소스
-//	      int count3 = pzt.pizza.length; // 도우
-//	      int a[] = new int[count];
-//	      int b[] = new int[count2];
-//	      int c[] = new int[count3];
-//	      Random r = new Random();
-//	      // 재료랜덤출력
-//	      for (int i = 0; i < count; i++) {
-//	         a[i] = r.nextInt(pzt.ingredients.length);
-//	         for (int j = 0; j < i; j++) {
-//	            if (a[i] == a[j]) {
-//	               i--; // 중복방지
+//	     private static void pickacard() {
+//	         //pizzatime pzt 는 재료들이 들어간곳 나중에 수정
+//	         pizzatime pzt = new pizzatime();
+//	         ArrayList<String> list = new ArrayList<String>();
+//	         int count = pzt.ingredients.length; // 재료
+//	         int count2 = pzt.sauce.length; // 소스
+//	         int count3 = pzt.pizza.length; // 도우
+//	         int a[] = new int[count];
+//	         int b[] = new int[count2];
+//	         int c[] = new int[count3];
+//	         Random r = new Random();
+//	         // 재료랜덤출력
+//	         for (int i = 0; i < count; i++) {
+//	            a[i] = r.nextInt(pzt.ingredients.length);
+//	            for (int j = 0; j < i; j++) {
+//	               if (a[i] == a[j]) {
+//	                  i--; // 중복방지
+//	               }
 //	            }
 //	         }
-//	      }
-//	      // 출력갯수 조절
-//	      for (int i = 0; i < 2; i++) {
-//	         System.out.println(pzt.ingredients[a[i]]);
-//	         list.add(pzt.ingredients[a[i]]); // arraylist에 넣어주기
-//
-//	      }
-//	      // 소스
-//	      for (int i = 0; i < count; i++) {
-//	         a[i] = r.nextInt(pzt.sauce.length);
-//	         for (int j = 0; j < i; j++) {
-//	            if (a[i] == a[j]) {
-//	               i--; // 중복방지
+//	         // 출력갯수 조절
+//	         for (int i = 0; i < 2; i++) {
+//	            System.out.println(pzt.ingredients[a[i]]);
+//	            list.add(pzt.ingredients[a[i]]); // arraylist에 넣어주기
+	//
+//	         }
+//	         // 소스
+//	         for (int i = 0; i < count; i++) {
+//	            a[i] = r.nextInt(pzt.sauce.length);
+//	            for (int j = 0; j < i; j++) {
+//	               if (a[i] == a[j]) {
+//	                  i--; // 중복방지
+//	               }
 //	            }
 //	         }
+//	         // 출력갯수 조절
+//	         for (int i = 0; i < 5; i++) {
+//	            System.out.println(pzt.sauce[a[i]]);
+//	            list.add(pzt.sauce[a[i]]); // arraylist에 넣어주기
+	//
+//	         }
+	//
+//	         System.out.println(list); // 배열출력
+	//
 //	      }
-//	      // 출력갯수 조절
-//	      for (int i = 0; i < 5; i++) {
-//	         System.out.println(pzt.sauce[a[i]]);
-//	         list.add(pzt.sauce[a[i]]); // arraylist에 넣어주기
-//
-//	      }
-//
-//	      System.out.println(list); // 배열출력
-//
-//	   }
 
 	// 로그인
 	public String loginCheck(String _i, String _p) {
@@ -325,11 +324,11 @@ public class DAO {
 
 			clip.start();
 
-//		          재생 시간동안 기다리기 (10초)
-//		            Thread.sleep(10000);
-//
-//		            clip.stop();
-//		            clip.close();
+//	                재생 시간동안 기다리기 (10초)
+//	                  Thread.sleep(10000);
+			//
+//	                  clip.stop();
+//	                  clip.close();
 
 		} catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
 			e.printStackTrace();
@@ -349,12 +348,11 @@ public class DAO {
 
 			while (rs.next()) {
 				String nick = rs.getString(1);
-				Date playdate = rs.getDate(2);
-				String score = rs.getString(3);
-				int time = rs.getInt(4);
-				String id = rs.getString(5);
+				String score = rs.getString(2);
+				int time = rs.getInt(3);
+				String id = rs.getString(4);
 
-				ScoreDTO sdto = new ScoreDTO(nick, playdate, score, time, id);
+				ScoreDTO sdto = new ScoreDTO(nick, score, time, id);
 				sdtoList.add(sdto);
 			}
 			return sdtoList;
@@ -373,20 +371,19 @@ public class DAO {
 		try {
 			getConn();
 			ArrayList<ScoreDTO> sdtoList = new ArrayList<>();
-			String sql = "SELECT * FROM (SELECT * FROM MEMBERSCORE WHERE ID =? " + "ORDER BY PLAYDATE DESC) "
-					+ "WHERE ROWNUM<=10";
+			String sql = "SELECT * FROM (SELECT * FROM MEMBERSCORE WHERE ID =? ORDER BY SCORE DESC, TIME ASC) WHERE ROWNUM<=5 ";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, userid);
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
 				String nick = rs.getString(1);
-				Date playdate = rs.getDate(2);
-				String score = rs.getString(3);
-				int time = rs.getInt(4);
-				String id = rs.getString(5);
+				String score = rs.getString(2);
+				int time = rs.getInt(3);
+				String id = rs.getString(4);
 
-				ScoreDTO sdto = new ScoreDTO(nick, playdate, score, time, id);
+				ScoreDTO sdto = new ScoreDTO(nick, score, time, id);
+
 				sdtoList.add(sdto);
 			}
 			return sdtoList;
@@ -418,8 +415,8 @@ public class DAO {
 				String 분류 = rs.getString(2);
 				String 재료 = rs.getString(3);
 				int 점수 = rs.getInt(4);
-				
-				MenuDTO mdto = new MenuDTO(요리명,분류,재료,점수);
+
+				MenuDTO mdto = new MenuDTO(요리명, 분류, 재료, 점수);
 
 				menuList.add(mdto);
 			}
@@ -452,8 +449,8 @@ public class DAO {
 				String 분류 = rs.getString(2);
 				String 재료 = rs.getString(3);
 				int 점수 = rs.getInt(4);
-				
-				MenuDTO mdto = new MenuDTO(요리명,분류,재료,점수);
+
+				MenuDTO mdto = new MenuDTO(요리명, 분류, 재료, 점수);
 
 				menuList.add(mdto);
 			}
@@ -486,8 +483,8 @@ public class DAO {
 				String 분류 = rs.getString(2);
 				String 재료 = rs.getString(3);
 				int 점수 = rs.getInt(4);
-				
-				MenuDTO mdto = new MenuDTO(요리명,분류,재료,점수);
+
+				MenuDTO mdto = new MenuDTO(요리명, 분류, 재료, 점수);
 				menuList.add(mdto);
 			}
 			return menuList;
@@ -501,7 +498,8 @@ public class DAO {
 		}
 
 	}
-	//중복없이 랜덤으로 값 추출
+
+	// 중복없이 랜덤으로 값 추출
 	public int[] Randomnum() {
 		// 중복없이 랜덤값 저장
 		int[] nums = new int[10];
@@ -518,20 +516,19 @@ public class DAO {
 		}
 		return nums;
 	}
-	
-	//점수계산 메소드
-		public int sumscore(String [] inputString,ArrayList <MenuDTO> mdto) {
-			int score =0;
-			for(int i = 0; i<inputString.length;i++) {
-				for(int j = 0; j<mdto.size();j++) {
-					if(inputString[i].equals(mdto.get(j).get재료())){
-						score += mdto.get(j).get점수();
-					}
+
+	// 점수계산 메소드
+	public int sumscore(String[] inputString, ArrayList<MenuDTO> mdto) {
+		int score = 0;
+		for (int i = 0; i < inputString.length; i++) {
+			for (int j = 0; j < mdto.size(); j++) {
+				if (inputString[i].equals(mdto.get(j).get재료())) {
+					score += mdto.get(j).get점수();
 				}
-				
-			}return score;
+			}
+
 		}
-	
-	
-	
+		return score;
+	}
+
 }

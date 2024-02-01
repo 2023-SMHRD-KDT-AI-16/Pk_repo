@@ -6,15 +6,14 @@ public class ScoreDTO {
 
 	String nickname;
 	String score;
-	Date playdate;
+	
 	int time;
 	String id;
 	
 	
-	public ScoreDTO(String nickname, Date playdate,String score, int time, String id) {
+	public ScoreDTO(String nickname, String score, int time, String id) {
 		super();
 		this.nickname = nickname;
-		this.playdate = playdate;
 		this.score = score;
 		this.time = time;
 		this.id = id;
@@ -22,7 +21,7 @@ public class ScoreDTO {
 
 	@Override
 	public String toString() {
-		return "ScoreDTO [nickname=" + nickname + ", playdate="+playdate+", score=" + score + ", time=" + time + ", id=" + id + "]";
+		return "ScoreDTO [nickname=" + nickname + ", score=" + score + ", time=" + time + ", id=" + id + "]";
 	}
 
 	public String getNickname() {
@@ -33,13 +32,6 @@ public class ScoreDTO {
 		this.nickname = nickname;
 	}
 
-	public Date getPlaydate() {
-		return playdate;
-	}
-
-	public void setPlaydate(Date playdate) {
-		this.playdate = playdate;
-	}
 	
 	public String getScore() {
 		return score;
