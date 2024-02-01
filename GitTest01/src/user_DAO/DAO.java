@@ -178,8 +178,10 @@ public class DAO {
 			psmt.setString(2, pw);
 			rs = psmt.executeQuery();
 			if (rs.next()) {
+				System.out.println("로그인 성공!");
 				return true;
 			}
+			System.out.println("로그인 실패!");
 			return false;
 
 		} catch (SQLException e) {

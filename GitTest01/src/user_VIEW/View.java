@@ -34,12 +34,22 @@ public class View {
 
 			if (input_main_num == 1) { // 로그인
 				System.out.println("=========================================================================");
+
 				System.out.println("  <로그인>");
 				System.out.print("ID : ");
 				String input_id = sc.next();
 				System.out.print("PW : ");
 				String input_pw = sc.next();
-				
+
+				while (dao.login(input_id, input_pw) == false) {
+					System.out.println("  <로그인>");
+					System.out.print("ID : ");
+					input_id = sc.next();
+					System.out.print("PW : ");
+					input_pw = sc.next();
+					dao.login(input_id, input_pw);
+					
+				}
 
 			} else if (input_main_num == 2) { // 회원가입
 
