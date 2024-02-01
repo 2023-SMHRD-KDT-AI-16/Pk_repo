@@ -100,7 +100,7 @@ public class View {
 					}
 				}
 			} else if (input_main_num == 3) {// 게임시작
-				time1 = dao.nowtime(); // time1 게임시작 시간
+				
 				System.out.println("=========================================================================");
 
 				System.out.println("	 ██████  █████ ███    ██████████    ████████████████████ ██████████████     ");
@@ -118,18 +118,35 @@ public class View {
 				
 				if(input_num_menu == 1) { //샌드위치 선택시
 					
-					ArrayList <MenuDTO> mdto = dao.sandwichList();
+				ArrayList <MenuDTO> mdto = dao.sandwichList();
 				int[]rdnum =dao.Randomnum();
 				for(int i =0;i<10;i++) {
 					int index=rdnum[i];
 					System.out.print(mdto.get(index).get재료()+"  \t");
-					
 				}System.out.println();
 				
+				time1 = dao.nowtime(); // time1 게임시작 시간
 					
 				}else if(input_num_menu == 2 ) { //피자 선택시
+					ArrayList <MenuDTO> mdto = dao.pizzaList();
+					int[]rdnum =dao.Randomnum();
+					for(int i =0;i<10;i++) {
+						int index=rdnum[i];
+						System.out.print(mdto.get(index).get재료()+"  \t");
+					}System.out.println();
+					
+					time1 = dao.nowtime(); // time1 게임시작 시간
 					
 				}else if(input_num_menu == 3) { //나베 선택시
+					ArrayList <MenuDTO> mdto = dao.nabeList();
+					int[]rdnum =dao.Randomnum();
+					for(int i =0;i<10;i++) {
+						int index=rdnum[i];
+						System.out.print(mdto.get(index).get재료()+"  \t");
+					}System.out.println();
+					
+					time1 = dao.nowtime(); // time1 게임시작 시간
+
 					
 				}else {
 					System.out.println("잘못된 입력입니다.");

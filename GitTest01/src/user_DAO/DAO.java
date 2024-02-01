@@ -484,7 +484,7 @@ public class DAO {
 	   
 	   
 	   //나베 리스트
-	   public ArrayList<MenuDTO> nabe() {
+	   public ArrayList<MenuDTO> nabeList() {
 			
 			ArrayList<MenuDTO> menuList = new ArrayList<MenuDTO>();
 
