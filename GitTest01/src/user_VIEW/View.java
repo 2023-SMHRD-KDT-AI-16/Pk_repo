@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import user_DAO.DAO;
 import user_DTO.DTO;
+import user_DTO.MenuDTO;
 import user_DTO.ScoreDTO;
 
 public class View {
@@ -99,15 +100,24 @@ public class View {
 				System.out.println("메뉴를 선택해주세요 ");
 				System.out.println("[1]샌드위치  [2]피자  [3]나베 ");
 				System.out.print("번호를 입력해주세요 :");
-				int input_num_menu = sc.nextInt(); // 사용자가 선택한 메뉴
-
-				if (input_num_menu == 1) {
-
-				} else if (input_num_menu == 2) {
-
-				} else if (input_num_menu == 3) {
-
-				} else {
+				int input_num_menu = sc.nextInt(); //사용자가 선택한 메뉴 
+				
+				if(input_num_menu == 1) { //샌드위치 선택시
+					
+					ArrayList <MenuDTO> mdto = dao.sandwichList();
+				int[]rdnum =dao.Randomnum();
+				for(int i =0;i<10;i++) {
+					int index=rdnum[i];
+					System.out.print(mdto.get(index).get재료()+"  \t");
+					
+				}System.out.println();
+				
+					
+				}else if(input_num_menu == 2 ) { //피자 선택시
+					
+				}else if(input_num_menu == 3) { //나베 선택시
+					
+				}else {
 					System.out.println("잘못된 입력입니다.");
 				}
 

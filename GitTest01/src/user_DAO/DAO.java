@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 import javax.sound.sampled.AudioInputStream;
@@ -363,24 +364,24 @@ public class DAO {
 		   
 	   }
 	   
-	   // 샌드위치 재료 메소드
-		public ArrayList<MenuDTO> sandwichList(String 샌드위치) {
+	   //샌드위치 리스트
+	   public ArrayList<MenuDTO> sandwichList() {
 			
 			ArrayList<MenuDTO> menuList = new ArrayList<MenuDTO>();
-			
-			String sql = "select 재료 from 재료 where  요리명 = '샌드위치'";
-			
+
 			try {
+				getConn();
+				String sql = "select 요리명,분류,재료 from 재료 where  요리명 = '샌드위치'";
 				psmt = conn.prepareStatement(sql);
 				
 				rs = psmt.executeQuery();
 				
 				while (rs.next()) {
 					String 요리명 = rs.getString(1);
-					String 빵 = rs.getString(2);
+					String 분류 = rs.getString(2);
 					String 재료 = rs.getString(3);
 					
-					MenuDTO mdto = new MenuDTO(요리명, 빵, 재료);
+					MenuDTO mdto = new MenuDTO(요리명, 분류, 재료);
 					
 					menuList.add(mdto);
 				}
@@ -397,70 +398,94 @@ public class DAO {
 			}
 	   
 		}
-		
-		// 피자 재료 메소드
-		public ArrayList<MenuDTO> PizzaList(String 피자) {
-
+	   
+	   
+	   //피자 리스트
+	   public ArrayList<MenuDTO> pizzaList() {
+			
 			ArrayList<MenuDTO> menuList = new ArrayList<MenuDTO>();
 
-			String sql = "select 재료 from 재료 where  요리명 = '피자'";
-
 			try {
+				getConn();
+				String sql = "select 요리명,분류,재료 from 재료 where  요리명 = '피자'";
 				psmt = conn.prepareStatement(sql);
-
+				
 				rs = psmt.executeQuery();
-
+				
 				while (rs.next()) {
 					String 요리명 = rs.getString(1);
 					String 분류 = rs.getString(2);
 					String 재료 = rs.getString(3);
-
+					
 					MenuDTO mdto = new MenuDTO(요리명, 분류, 재료);
-
+					
 					menuList.add(mdto);
 				}
 				return menuList;
-
+				
+				
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return null;
-			} finally {
+			}finally {
 				allClose();
 			}
-
+	   
 		}
-		
-		// 나베 재료 메소드
-		public ArrayList<MenuDTO> nabeList(String 나베) {
-
+	   
+	   
+	   //나베 리스트
+	   public ArrayList<MenuDTO> nabe() {
+			
 			ArrayList<MenuDTO> menuList = new ArrayList<MenuDTO>();
 
-			String sql = "select 재료 from 재료 where  요리명 = '나베'";
-
 			try {
+				getConn();
+				String sql = "select 요리명,분류,재료 from 재료 where  요리명 = '나베'";
 				psmt = conn.prepareStatement(sql);
-
+				
 				rs = psmt.executeQuery();
-
+				
 				while (rs.next()) {
 					String 요리명 = rs.getString(1);
 					String 분류 = rs.getString(2);
 					String 재료 = rs.getString(3);
-
+					
 					MenuDTO mdto = new MenuDTO(요리명, 분류, 재료);
-
+					
 					menuList.add(mdto);
 				}
 				return menuList;
-
+				
+				
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return null;
-			} finally {
+			}finally {
 				allClose();
 			}
-
+	   
 		}
+	   
+	   
+	   public int[] Randomnum() {
+			//중복없이 랜덤값 저장
+			int[]nums = new int [10];
+			Random rd = new Random();
+			
+			for(int i=0;i<nums.length;i++) {
+				nums[i] = rd.nextInt(10);
+				for(int j = 0;j<i;j++) {
+					if(nums[i]==nums[j]) {
+						i--;
+						break;
+					}
+				}
+			}
+			return nums;
+	   }
 }
