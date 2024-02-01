@@ -31,7 +31,7 @@ public class View {
 		boolean mainrun = true;
 		while (mainrun) {
 
-			System.out.println("=========================================================================");
+			System.out.println("。.。:+* ゜ ゜゜ *+:。.。:+* ゜ ゜゜ *+:。.。.。:+* ゜ ゜゜。.。:+* ゜ ゜゜ *+:。.。:+* ゜ ゜゜ *+:。.。.。:+* ゜ ゜゜。.。:+* ゜ ゜゜ *+:。.。:+* ゜ ゜゜ *+:。.。.。:+* ゜ ゜゜");
 			System.out.println("                          <고든램지의 요리교실>");
 			System.out.println("[1]로그인 [2]회원가입 [3]게임시작 [4]랭킹조회 [5]종료");
 
@@ -207,13 +207,18 @@ public class View {
 				   System.out.println("      ██║   ╚██████╔╝██║         ██║     ██║ ╚████╔╝ ███████╗ ");
 				   System.out.println("      ╚═╝    ╚═════╝ ╚═╝         ╚═╝     ╚═╝  ╚═══╝  ╚══════╝ ");
 				   System.out.println();
-				   
+				   System.out.println();
+					System.out.println("                  ･ ﾟ ₊ ﾟ+ ♡ ♡ ᕬ ᕬ ♡ ♡ ･₊ + . ﾟ   ");
+					System.out.println("                   + ･ﾟ + ♡ ( ⌯′-′⌯) ♡ + ･₊ ﾟ .･    ");
+					System.out.println("┏━ ʚෆɞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ U U━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ʚෆɞ ━┓                ");
 					for(int i =0; i<dto.size();i++) {
 						System.out.print(i+1+"등 nick : "+dto.get(i).getNickname());
 						System.out.print("/ score : "+dto.get(i).getScore());
 						System.out.println("/ time : "+dto.get(i).getTime());
-						System.out.println("------------------------------------------------");
+						System.out.println("       ✧⋄⋆⋅⋆⋄✧⋄⋆⋅⋆⋄✧⋄⋆⋅⋆⋄✧⋄⋆⋅⋆⋄✧✧⋄⋆⋅⋆⋄✧⋄⋆⋅⋆⋄✧⋄⋆⋅⋆⋄✧⋄⋆⋅⋆⋄✧");
 					}
+					System.out.println(" ┗━ ʚෆɞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ʚෆɞ ━┛");
+				   System.out.println();
 				   }else if(input_rank_num == 2){ //나의 랭킹 조회
 					  
 					   if(input_id == null) {
