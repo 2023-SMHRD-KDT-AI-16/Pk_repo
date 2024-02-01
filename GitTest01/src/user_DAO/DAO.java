@@ -174,34 +174,38 @@ public class DAO {
 	}
 
 	// 로그인
-	public boolean login(String id, String pw) {
-		int count = 0;
-		String sql = "select * from member where id=? and pw =?";
-		try {
-			getConn();
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, id);
-			psmt.setString(2, pw);
-			rs = psmt.executeQuery();
-			if (rs.next()) {
-				System.out.println("로그인 성공!");
+	   public String login(String id, String pw) {
+	      
+	      int count = 0;
+	      String nickname = null;
+	      String sql = "select * from member where id=? and pw =?";
+	      try {
+	         getConn();
+	         psmt = conn.prepareStatement(sql);
+	         psmt.setString(1, id);
+	         psmt.setString(2, pw);
+	         rs = psmt.executeQuery();
+	         if (rs.next()) {
+	            System.out.println("로그인 성공!");
+	            nickname = rs.getString("NICK");
+	         System.out.println(nickname);
+	            return nickname;
+	         }
+	         System.out.println("로그인 실패!");
+	         count++;
+	         
+	         return "0";
 
-				return false;
-			}
-			System.out.println("로그인 실패!");
-			count++;
+	      } catch (SQLException e) {
+	         System.out.println("login 오류");
+	      } finally {
+	         
+	         allClose();
+	      }
+	      
+	      return "-2";
 
-			return true;
-
-		} catch (SQLException e) {
-			System.out.println("login 오류");
-		} finally {
-			allClose();
-		}
-
-		return false;
-
-	}
+	   }
 
 	// 카운트다운 기능
 	// 카운트다운
@@ -531,4 +535,34 @@ public class DAO {
 		return score;
 	}
 
+	//점수저장 메소드
+    
+    public int save(ScoreDTO DTO) {
+       
+       getConn();
+
+       String sql = "insert into memberscore values(?,?,?,?)";
+
+       try {
+          psmt = conn.prepareStatement(sql);
+          psmt.setString(1, DTO.getNickname());
+          psmt.setString(2, DTO.getScore());
+          psmt.setInt(3, DTO.getTime());
+          psmt.setString(4, DTO.getId());
+          
+
+          int row = psmt.executeUpdate();
+          return row;
+
+       } catch (SQLException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+          return 0;
+       } finally {
+          allClose();
+       }
+
+    }
+	
+	
 }
