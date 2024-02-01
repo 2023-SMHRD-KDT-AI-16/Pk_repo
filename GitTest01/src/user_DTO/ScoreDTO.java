@@ -2,11 +2,10 @@ package user_DTO;
 
 
 public class ScoreDTO {
-   String nickname;
 
+   String nickname;
    int score;
    double time;
-
    String id;
    
    
@@ -22,7 +21,7 @@ public class ScoreDTO {
 
    @Override
    public String toString() {
-      return "ScoreDTO [nickname=" + nickname +", score=" + score + ", time=" + time + ", id=" + id + "]";
+      return "ScoreDTO [nickname=" + nickname + ", score=" + score + ", time=" + time + ", id=" + id + "]";
    }
 
    public String getNickname() {
@@ -33,8 +32,8 @@ public class ScoreDTO {
       this.nickname = nickname;
    }
 
+   
    public int getScore() {
-
       return score;
    }
 
@@ -59,5 +58,4 @@ public class ScoreDTO {
    
    
    
-
 }
