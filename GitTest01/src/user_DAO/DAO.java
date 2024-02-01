@@ -173,6 +173,7 @@ public class DAO {
 
 	// 로그인
 	public boolean login(String id, String pw) {
+		String nick = null;
 		String sql = "select * from member where id=? and pw =?";
 		try {
 			getConn();
@@ -182,9 +183,12 @@ public class DAO {
 			rs = psmt.executeQuery();
 			if (rs.next()) {
 				System.out.println("로그인 성공!");
+				nick = dto.getNickname();
+				System.out.println("닉네임" + nick);
 				return false;
 			}
 			System.out.println("로그인 실패!");
+			nick = "null";
 			return true;
 			
 
@@ -265,7 +269,46 @@ public class DAO {
 //
 //	   }
 
-	   
+
+	 //로그인 여부를 확인하는 메소드. 서버에 닉네임을 String 형식으로 반환한다.
+		public String loginCheck(String _i, String _p) {
+			String nickname = "null";	//반환할 닉네임 변수를 "null"로 초기화.
+			
+			
+			String id = _i;
+			String pw = _p;
+			String sql = "SELECT * FROM member WHERE id='" + id + "'";
+	
+			getConn();
+			
+			try {
+			
+				psmt = conn.prepareStatement(sql);
+				rs = psmt.executeQuery();
+				while(rs.next()) {
+					
+					if(pw.equals(rs.getString("PW"))) {	//true일 경우 nickname에 조회한 닉네임에 반환하고 로그인 성공을 콘솔로 알린다.
+						nickname = rs.getString("NICK");
+						System.out.println("로그인 성공");
+						System.out.println(nickname);
+					}
+					
+					else {	//false일 경우 nickname을 "null"로 초기화하고 로그인 실패를 콘솔로 알린다.
+						nickname = "null";
+						System.out.println("로그인 실패");
+					}
+					
+				}
+			} catch(Exception e) {	//조회에 실패했을 때 nickname을 "null"로 초기화. 실패를 콘솔로 알린다.
+				nickname = "null";
+				System.out.println("로그인 실패 " + e.toString());
+				
+			}
+			
+			return nickname;	//nickname 반환
+		}
+	
+
 	   
 	   
 	   

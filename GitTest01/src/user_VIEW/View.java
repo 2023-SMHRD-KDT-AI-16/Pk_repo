@@ -1,14 +1,17 @@
 package user_VIEW;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import user_DAO.DAO;
 import user_DTO.DTO;
+import user_DTO.ScoreDTO;
 
 public class View {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
+		
 		DAO dao = new DAO();
 		String input_id = null;
 		String input_pw = null;
@@ -36,19 +39,13 @@ public class View {
 
 			if (input_main_num == 1) { // 로그인
 				System.out.println("=========================================================================");
-
-				boolean run = true;
-				while (run) {
-					System.out.println("  <로그인>");
-					System.out.print("ID : ");
-					input_id = sc.next();
-					System.out.print("PW : ");
-					input_pw = sc.next();
-					run = dao.login(input_id, input_pw);
-					if (run == false)
-						break;
-
-				}
+				System.out.println("  <로그인>");
+				System.out.print("ID : ");
+				input_id = sc.next();
+				System.out.print("PW : ");
+				input_pw = sc.next();
+				dao.loginCheck(input_id, input_pw);
+				
 
 			} else if (input_main_num == 2) {
 
@@ -111,15 +108,47 @@ public class View {
 			} else if (input_main_num == 4) {// 랭킹조회
 				System.out.println("=========================================================================");
 
-				System.out.println("   ████████╗ ██████╗ ██████╗     ███████╗██╗██╗   ██╗███████╗ ");
-				System.out.println("   ╚══██╔══╝██╔═══██╗██╔══██╗    ██╔════╝██║██║   ██║██╔════╝ ");
-				System.out.println("      ██║   ██║   ██║██████╔╝    █████╗  ██║██║   ██║█████╗   ");
-				System.out.println("      ██║   ██║   ██║██╔═══╝     ██╔══╝  ██║╚██╗ ██╔╝██╔══╝   ");
-				System.out.println("      ██║   ╚██████╔╝██║         ██║     ██║ ╚████╔╝ ███████╗ ");
-				System.out.println("      ╚═╝    ╚═════╝ ╚═╝         ╚═╝     ╚═╝  ╚═══╝  ╚══════╝ ");
+				
+				   System.out.println("[1]TOP 5 랭킹 조회  [2]나의 랭킹 조회");
+				   System.out.print("번호를 입력해주세요 :");
+				   int input_rank_num = sc.nextInt();
+				   
+				   if(input_rank_num == 1) { //top5 랭킹 조회
+				   ArrayList<ScoreDTO> dto = dao.Select();
+				   System.out.println("   ████████╗ ██████╗ ██████╗     ███████╗██╗██╗   ██╗███████╗ ");
+				   System.out.println("   ╚══██╔══╝██╔═══██╗██╔══██╗    ██╔════╝██║██║   ██║██╔════╝ ");
+				   System.out.println("      ██║   ██║   ██║██████╔╝    █████╗  ██║██║   ██║█████╗   ");
+				   System.out.println("      ██║   ██║   ██║██╔═══╝     ██╔══╝  ██║╚██╗ ██╔╝██╔══╝   ");
+				   System.out.println("      ██║   ╚██████╔╝██║         ██║     ██║ ╚████╔╝ ███████╗ ");
+				   System.out.println("      ╚═╝    ╚═════╝ ╚═╝         ╚═╝     ╚═╝  ╚═══╝  ╚══════╝ ");
+				   System.out.println();
+				   
+					for(int i =0; i<dto.size();i++) {
+						System.out.print(i+1+"등 nick : "+dto.get(i).getNickname());
+						System.out.print("/ score : "+dto.get(i).getScore());
+						System.out.println("/ time : "+dto.get(i).getTime());
+						System.out.println("------------------------------------------------");
+					}
+				   }else if(input_rank_num == 2){ //나의 랭킹 조회
+					  
+					   if(input_id == null) {
+						   System.out.println("비회원입니다. 지난 랭킹을 조회하시려면 로그인 해주세요.");
+					   }
+					   
+					   ArrayList<ScoreDTO> dto = dao.SelectMyScore(input_id);
+					   
+					   for(int i =0; i<dto.size();i++) {
+							System.out.print(i+1+" nick : "+dto.get(i).getNickname());
+							System.out.print("/ score : "+dto.get(i).getScore());
+							System.out.println("/ time : "+dto.get(i).getTime());
+							System.out.println("------------------------------------------------");
+				   }
+				   
+				   }		
 
 			} else if (input_main_num == 5) {// 종료하기
-				time2 = dao.nowtime();// 게임 끝날때 시간
+
+			time2 = dao.nowtime();// 게임 끝날때 시간
 
 				dao.elapse_time(time1, time2); // 경과 시간 출력
 				System.out.println("종료합니다");
@@ -131,5 +160,6 @@ public class View {
 		}
 
 	}
+
 
 }
