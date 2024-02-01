@@ -39,7 +39,6 @@ public class View {
 				String input_id = sc.next();
 				System.out.print("PW : ");
 				String input_pw = sc.next();
-				
 
 			} else if (input_main_num == 2) { // 회원가입
 
