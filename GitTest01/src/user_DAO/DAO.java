@@ -356,7 +356,7 @@ public class DAO {
 				int time = rs.getInt(3);
 				String id = rs.getString(4);
 
-				ScoreDTO sdto = new ScoreDTO(nick, score, time, id);
+				ScoreDTO sdto = new ScoreDTO(nick, time, time, id);
 				sdtoList.add(sdto);
 			}
 			return sdtoList;
@@ -386,7 +386,7 @@ public class DAO {
 					int time = rs.getInt(3);
 					String id = rs.getString(4);
 
-					ScoreDTO sdto = new ScoreDTO(nick,score, time, id);
+					ScoreDTO sdto = new ScoreDTO(nick, time, time, id);
 					
 					sdtoList.add(sdto);
 				}
