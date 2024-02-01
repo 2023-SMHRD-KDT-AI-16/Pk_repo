@@ -1,59 +1,63 @@
 package user_DTO;
 
+
 public class ScoreDTO {
-	String nickname;
-	String score;
-	int time;
-	String id;
-	
-	
-	public ScoreDTO(String nickname, String score, int time, String id) {
-		super();
-		this.nickname = nickname;
-		this.score = score;
-		this.time = time;
-		this.id = id;
-	}
+   String nickname;
 
-	@Override
-	public String toString() {
-		return "ScoreDTO [nickname=" + nickname +", score=" + score + ", time=" + time + ", id=" + id + "]";
-	}
+   int score;
+   double time;
 
-	public String getNickname() {
-		return nickname;
-	}
+   String id;
+   
+   
+   
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
+   public ScoreDTO(String nickname, int score, double time, String id) {
+      super();
+      this.nickname = nickname;
+      this.score = score;
+      this.time = time;
+      this.id = id;
+   }
 
-	public String getScore() {
-		return score;
-	}
+   @Override
+   public String toString() {
+      return "ScoreDTO [nickname=" + nickname +", score=" + score + ", time=" + time + ", id=" + id + "]";
+   }
 
-	public void setScore(String score) {
-		this.score = score;
-	}
+   public String getNickname() {
+      return nickname;
+   }
 
-	public int getTime() {
-		return time;
-	}
+   public void setNickname(String nickname) {
+      this.nickname = nickname;
+   }
 
-	public void setTime(int time) {
-		this.time = time;
-	}
+   public int getScore() {
 
-	public String getId() {
-		return id;
-	}
+      return score;
+   }
 
-	public void setId(String id) {
-		this.id = id;
-	}
-	
-	
-	
+   public void setScore(int score) {
+      this.score = score;
+   }
+
+   public double getTime() {
+      return time;
+   }
+   public void setTime(double time) {
+      this.time = time;
+   }
+
+   public String getId() {
+      return id;
+   }
+
+   public void setId(String id) {
+      this.id = id;
+   }
+   
+   
+   
 
 }
-
