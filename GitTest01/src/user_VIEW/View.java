@@ -28,8 +28,8 @@ public class View {
 		System.out.println("               ╔═╗┌─┐┌─┐┬┌─┬┌┐┌┌─┐  ┌─┐┬  ┌─┐┌─┐┌─┐  ");
 		System.out.println("               ║  │ ││ │├┴┐│││││ ┬  │  │  ├─┤└─┐└─┐  ");
 		System.out.println("               ╚═╝└─┘└─┘┴ ┴┴┘└┘└─┘  └─┘┴─┘┴ ┴└─┘└─┘  ");
-
-		while (true) {
+		boolean mainrun = true;
+		while (mainrun) {
 
 			System.out.println("=========================================================================");
 			System.out.println("                          <고든램지의 요리교실>");
@@ -51,8 +51,8 @@ public class View {
 					run=dao.login(input_id, input_pw);
 					if(run == false) break;
 					if(run == true) {count++;}
-					if(count>3) {
-						System.out.println("로그인실패!");break;}
+					if(count>2) {
+						System.out.println("로그인 기회가 모두 소진되었습니다!"); mainrun = false; break;}
 					System.out.println(count+"/3");
 				}
 				

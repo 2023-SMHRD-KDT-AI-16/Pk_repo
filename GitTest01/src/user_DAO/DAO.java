@@ -30,6 +30,7 @@ public class DAO {
 	private ResultSet rs;
 	Scanner sc = new Scanner(System.in);
 	DTO dto = new DTO(null, null, null);
+
 	// 경과 시간구하는 메소드
 	public void elapse_time(Long time1, Long time2) {
 		long elapsetime = time2 - time1;
@@ -53,12 +54,12 @@ public class DAO {
 			String user = "mp_21K_bigdata22_p1_3";
 			String pw = "smhrd3";
 			String url = "jdbc:oracle:thin:@project-db-campus.smhrd.com:1523:xe";
-			
+
 			conn = DriverManager.getConnection(url, user, pw);
 
 			if (conn != null) {
 
-				//System.out.println("연결성공");
+				// System.out.println("연결성공");
 			} else {
 				System.out.println("연결실패");
 			}
@@ -131,7 +132,7 @@ public class DAO {
 
 			rs.next();
 			if (rs.getInt(1) == 1) {
-				
+
 				return true;
 			}
 
@@ -185,15 +186,13 @@ public class DAO {
 			rs = psmt.executeQuery();
 			if (rs.next()) {
 				System.out.println("로그인 성공!");
-				
-			
+
 				return false;
 			}
 			System.out.println("로그인 실패!");
 			count++;
-			
+
 			return true;
-			
 
 		} catch (SQLException e) {
 			System.out.println("login 오류");
@@ -205,27 +204,25 @@ public class DAO {
 
 	}
 
-	
-	
-	//카운트다운 기능
-	 // 카운트다운
-	   private static void countdown() {
-	      try {
-	         for (int i = 10; i > 0; i--) {
-	            System.out.println(i + "초 남았습니다.");
+	// 카운트다운 기능
+	// 카운트다운
+	private static void countdown() {
+		try {
+			for (int i = 10; i > 0; i--) {
+				System.out.println(i + "초 남았습니다.");
 
-	            // 1초 대기
-	            Thread.sleep(1000);
-	         }
-	      } catch (InterruptedException e) {
+				// 1초 대기
+				Thread.sleep(1000);
+			}
+		} catch (InterruptedException e) {
 
-	         e.printStackTrace();
-	      }
-	   }
+			e.printStackTrace();
+		}
+	}
 
-	 //PICKACARD
-	   
-	 //랜덤 재료 출력 메소드
+	// PICKACARD
+
+	// 랜덤 재료 출력 메소드
 //	  private static void pickacard() {
 //		   //pizzatime pzt 는 재료들이 들어간곳 나중에 수정
 //	      pizzatime pzt = new pizzatime();
@@ -272,65 +269,61 @@ public class DAO {
 //
 //	   }
 
+	// 로그인
+	public String loginCheck(String _i, String _p) {
+		String nickname = "null";
 
-	 //로그인
-		public String loginCheck(String _i, String _p) {
-			String nickname = "null";	
-			
-			
-			String id = _i;
-			String pw = _p;
-			String sql = "SELECT * FROM member WHERE id='" + id + "'";
-	
-			getConn();
-			
-			try {
-			
-				psmt = conn.prepareStatement(sql);
-				rs = psmt.executeQuery();
-				while(rs.next()) {
-					
-					if(pw.equals(rs.getString("PW"))) {	
-						nickname = rs.getString("NICK");
-						System.out.println("로그인 성공");
-						System.out.println("닉네임 정보" + nickname);
-						return nickname;
-					} else {
-						nickname = null;
-						
-						System.out.println("로그인실패!");
-						return nickname;
-					}
-					
+		String id = _i;
+		String pw = _p;
+		String sql = "SELECT * FROM member WHERE id='" + id + "'";
+
+		getConn();
+
+		try {
+
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+
+				if (pw.equals(rs.getString("PW"))) {
+					nickname = rs.getString("NICK");
+					System.out.println("로그인 성공");
+					System.out.println("닉네임 정보" + nickname);
+					return nickname;
+				} else {
+					nickname = null;
+
+					System.out.println("로그인실패!");
+					return nickname;
 				}
-			} catch(Exception e) {	
-				nickname = "null";
-				System.out.println("로그인 실패 " + e.toString());
-				
+
 			}
-			
-			finally {allClose();}
-			return nickname;
-			
-			
+		} catch (Exception e) {
+			nickname = "null";
+			System.out.println("로그인 실패 " + e.toString());
+
 		}
-	
- 
-	   
-	   
-	//BGM 메소드
-	   
-	   private static void bgm_on() {
-		      /* 음악주소 */
-		      File bgm = new File("D:/down/노래이름.wav");
 
-		      try {
-		         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(bgm);
-		         Clip clip = AudioSystem.getClip();
+		finally {
+			allClose();
+		}
+		return nickname;
 
-		         clip.open(audioInputStream);
+	}
 
-		         clip.start();
+	// BGM 메소드
+
+	private static void bgm_on() {
+		/* 음악주소 */
+		File bgm = new File("D:/down/노래이름.wav");
+
+		try {
+			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(bgm);
+			Clip clip = AudioSystem.getClip();
+
+			clip.open(audioInputStream);
+
+			clip.start();
 
 //		          재생 시간동안 기다리기 (10초)
 //		            Thread.sleep(10000);
@@ -338,201 +331,191 @@ public class DAO {
 //		            clip.stop();
 //		            clip.close();
 
-		      } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
-		         e.printStackTrace();
+		} catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+			e.printStackTrace();
 
-		      }
-	
-	   }
-	   
-	   
-	   //top5 선택하는 메소드
-	   public 	ArrayList <ScoreDTO> Select() {
-			try {		
-				getConn();
-				ArrayList <ScoreDTO> sdtoList = new ArrayList<>();
-				String sql = "SELECT * FROM (SELECT * FROM MEMBERSCORE ORDER BY SCORE DESC, TIME ASC) WHERE ROWNUM<=5";
-				psmt = conn.prepareStatement(sql);
-				rs = psmt.executeQuery();
+		}
+
+	}
+
+	// top5 선택하는 메소드
+	public ArrayList<ScoreDTO> Select() {
+		try {
+			getConn();
+			ArrayList<ScoreDTO> sdtoList = new ArrayList<>();
+			String sql = "SELECT * FROM (SELECT * FROM MEMBERSCORE ORDER BY SCORE DESC, TIME ASC) WHERE ROWNUM<=5";
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				String nick = rs.getString(1);
+				Date playdate = rs.getDate(2);
+				String score = rs.getString(3);
+				int time = rs.getInt(4);
+				String id = rs.getString(5);
+
+				ScoreDTO sdto = new ScoreDTO(nick, playdate, score, time, id);
+				sdtoList.add(sdto);
+			}
+			return sdtoList;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} finally {
+			allClose();
+		}
+	}
+
+	// 나의 최근 기록 선택하는 메소드
+	public ArrayList<ScoreDTO> SelectMyScore(String userid) {
+		try {
+			getConn();
+			ArrayList<ScoreDTO> sdtoList = new ArrayList<>();
+			String sql = "SELECT * FROM (SELECT * FROM MEMBERSCORE WHERE ID =? " + "ORDER BY PLAYDATE DESC) "
+					+ "WHERE ROWNUM<=10";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, userid);
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				String nick = rs.getString(1);
+				Date playdate = rs.getDate(2);
+				String score = rs.getString(3);
+				int time = rs.getInt(4);
+				String id = rs.getString(5);
+
+				ScoreDTO sdto = new ScoreDTO(nick, playdate, score, time, id);
+				sdtoList.add(sdto);
+			}
+			return sdtoList;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} finally {
+			allClose();
+		}
+
+	}
+
+	// 샌드위치 리스트
+	public ArrayList<MenuDTO> sandwichList() {
+
+		ArrayList<MenuDTO> menuList = new ArrayList<MenuDTO>();
+
+		try {
+			getConn();
+			String sql = "select 요리명,분류,재료,점수 from 재료 where  요리명 = '샌드위치'";
+			psmt = conn.prepareStatement(sql);
+
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				String 요리명 = rs.getString(1);
+				String 분류 = rs.getString(2);
+				String 재료 = rs.getString(3);
+				int 점수 = rs.getInt(4);
 				
-				while(rs.next()) {
-					String nick = rs.getString(1);
-					Date playdate = rs.getDate(2);
-					String score = rs.getString(3);
-					int time = rs.getInt(4);
-					String id = rs.getString(5);
-					
-					ScoreDTO sdto = new ScoreDTO(nick,playdate,score,time,id);
-					sdtoList.add(sdto);
+				MenuDTO mdto = new MenuDTO(요리명,분류,재료,점수);
+
+				menuList.add(mdto);
+			}
+			return menuList;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} finally {
+			allClose();
+		}
+
+	}
+
+	// 피자 리스트
+	public ArrayList<MenuDTO> pizzaList() {
+
+		ArrayList<MenuDTO> menuList = new ArrayList<MenuDTO>();
+
+		try {
+			getConn();
+			String sql = "select 요리명,분류,재료,점수 from 재료 where  요리명 = '피자'";
+			psmt = conn.prepareStatement(sql);
+
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				String 요리명 = rs.getString(1);
+				String 분류 = rs.getString(2);
+				String 재료 = rs.getString(3);
+				int 점수 = rs.getInt(4);
+				
+				MenuDTO mdto = new MenuDTO(요리명,분류,재료,점수);
+
+				menuList.add(mdto);
+			}
+			return menuList;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} finally {
+			allClose();
+		}
+
+	}
+
+	// 나베 리스트
+	public ArrayList<MenuDTO> nabeList() {
+
+		ArrayList<MenuDTO> menuList = new ArrayList<MenuDTO>();
+
+		try {
+			getConn();
+			String sql = "select 요리명,분류,재료,점수 from 재료 where  요리명 = '나베'";
+			psmt = conn.prepareStatement(sql);
+
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				String 요리명 = rs.getString(1);
+				String 분류 = rs.getString(2);
+				String 재료 = rs.getString(3);
+				int 점수 = rs.getInt(4);
+				
+				MenuDTO mdto = new MenuDTO(요리명,분류,재료,점수);
+				menuList.add(mdto);
+			}
+			return menuList;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} finally {
+			allClose();
+		}
+
+	}
+
+	public int[] Randomnum() {
+		// 중복없이 랜덤값 저장
+		int[] nums = new int[10];
+		Random rd = new Random();
+
+		for (int i = 0; i < nums.length; i++) {
+			nums[i] = rd.nextInt(10);
+			for (int j = 0; j < i; j++) {
+				if (nums[i] == nums[j]) {
+					i--;
+					break;
 				}
-				return sdtoList;
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return null;
-			}	finally {
-				allClose();
 			}
 		}
-	
-	   
-	   //나의 최근 기록 선택하는 메소드
-	   public ArrayList <ScoreDTO> SelectMyScore(String userid){
-		   try {		
-				getConn();
-				ArrayList <ScoreDTO> sdtoList = new ArrayList<>();
-				String sql = "SELECT * FROM (SELECT * FROM MEMBERSCORE WHERE ID =? "
-						+ "ORDER BY PLAYDATE DESC) "
-						+ "WHERE ROWNUM<=10";
-				psmt = conn.prepareStatement(sql);
-				psmt.setString(1, userid);
-				rs = psmt.executeQuery();
-				
-				while(rs.next()) {
-					String nick = rs.getString(1);
-					Date playdate = rs.getDate(2);
-					String score = rs.getString(3);
-					int time = rs.getInt(4);
-					String id = rs.getString(5);
-					
-					ScoreDTO sdto = new ScoreDTO(nick,playdate,score,time,id);
-					sdtoList.add(sdto);
-				}
-				return sdtoList;
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return null;
-			}	finally {
-				allClose();
-			}
-		   
-	   }
-	   
-	   //샌드위치 리스트
-	   public ArrayList<MenuDTO> sandwichList() {
-			
-			ArrayList<MenuDTO> menuList = new ArrayList<MenuDTO>();
-
-			try {
-				getConn();
-				String sql = "select 요리명,분류,재료 from 재료 where  요리명 = '샌드위치'";
-				psmt = conn.prepareStatement(sql);
-				
-				rs = psmt.executeQuery();
-				
-				while (rs.next()) {
-					String 요리명 = rs.getString(1);
-					String 분류 = rs.getString(2);
-					String 재료 = rs.getString(3);
-					
-					MenuDTO mdto = new MenuDTO(요리명, 분류, 재료);
-					
-					menuList.add(mdto);
-				}
-				return menuList;
-				
-				
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return null;
-			}finally {
-				allClose();
-			}
-	   
-		}
-	   
-	   
-	   //피자 리스트
-	   public ArrayList<MenuDTO> pizzaList() {
-			
-			ArrayList<MenuDTO> menuList = new ArrayList<MenuDTO>();
-
-			try {
-				getConn();
-				String sql = "select 요리명,분류,재료 from 재료 where  요리명 = '피자'";
-				psmt = conn.prepareStatement(sql);
-				
-				rs = psmt.executeQuery();
-				
-				while (rs.next()) {
-					String 요리명 = rs.getString(1);
-					String 분류 = rs.getString(2);
-					String 재료 = rs.getString(3);
-					
-					MenuDTO mdto = new MenuDTO(요리명, 분류, 재료);
-					
-					menuList.add(mdto);
-				}
-				return menuList;
-				
-				
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return null;
-			}finally {
-				allClose();
-			}
-	   
-		}
-	   
-	   
-	   //나베 리스트
-	   public ArrayList<MenuDTO> nabeList() {
-			
-			ArrayList<MenuDTO> menuList = new ArrayList<MenuDTO>();
-
-			try {
-				getConn();
-				String sql = "select 요리명,분류,재료 from 재료 where  요리명 = '나베'";
-				psmt = conn.prepareStatement(sql);
-				
-				rs = psmt.executeQuery();
-				
-				while (rs.next()) {
-					String 요리명 = rs.getString(1);
-					String 분류 = rs.getString(2);
-					String 재료 = rs.getString(3);
-					
-					MenuDTO mdto = new MenuDTO(요리명, 분류, 재료);
-					
-					menuList.add(mdto);
-				}
-				return menuList;
-				
-				
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return null;
-			}finally {
-				allClose();
-			}
-	   
-		}
-	   
-	   
-	   public int[] Randomnum() {
-			//중복없이 랜덤값 저장
-			int[]nums = new int [10];
-			Random rd = new Random();
-			
-			for(int i=0;i<nums.length;i++) {
-				nums[i] = rd.nextInt(10);
-				for(int j = 0;j<i;j++) {
-					if(nums[i]==nums[j]) {
-						i--;
-						break;
-					}
-				}
-			}
-			return nums;
-	   }
+		return nums;
+	}
 }
