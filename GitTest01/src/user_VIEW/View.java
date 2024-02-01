@@ -118,14 +118,28 @@ public class View {
 				
 				if(input_num_menu == 1) { //샌드위치 선택시
 					
-				ArrayList <MenuDTO> mdto = dao.sandwichList();
-				int[]rdnum =dao.Randomnum();
-				for(int i =0;i<10;i++) {
-					int index=rdnum[i];
-					System.out.print(mdto.get(index).get재료()+"  \t");
-				}System.out.println();
-				
-				time1 = dao.nowtime(); // time1 게임시작 시간
+					ArrayList <MenuDTO> mdto = dao.sandwichList();
+					int[]rdnum =dao.Randomnum();
+					for(int i =0;i<10;i++) {
+						int index=rdnum[i];
+						System.out.print(mdto.get(index).get재료()+"  \t");
+					}System.out.println();
+					
+					time1 = dao.nowtime(); // time1 게임시작 시간
+					
+					String [] inputString = new String [5];
+					for(int i =0; i<inputString.length;i++) {
+						System.out.print(i+1+"번째 재료 : ");
+						inputString[i]= sc.next();
+						
+					}
+					time2 = dao.nowtime();// 게임 끝날때 시간
+
+					
+					
+					System.out.println(dao.sumscore(inputString, mdto));
+					
+					dao.elapse_time(time1, time2); // 경과 시간 출력
 					
 				}else if(input_num_menu == 2 ) { //피자 선택시
 					ArrayList <MenuDTO> mdto = dao.pizzaList();
@@ -137,6 +151,18 @@ public class View {
 					
 					time1 = dao.nowtime(); // time1 게임시작 시간
 					
+					String [] inputString = new String [5];
+					for(int i =0; i<inputString.length;i++) {
+						System.out.print(i+1+"번째 재료 : ");
+						inputString[i]= sc.next();
+						
+					}
+					time2 = dao.nowtime();// 게임 끝날때 시간
+
+					System.out.println(dao.sumscore(inputString, mdto));
+					
+					dao.elapse_time(time1, time2); // 경과 시간 출력
+					
 				}else if(input_num_menu == 3) { //나베 선택시
 					ArrayList <MenuDTO> mdto = dao.nabeList();
 					int[]rdnum =dao.Randomnum();
@@ -146,6 +172,18 @@ public class View {
 					}System.out.println();
 					
 					time1 = dao.nowtime(); // time1 게임시작 시간
+					
+					String [] inputString = new String [5];
+					for(int i =0; i<inputString.length;i++) {
+						System.out.print(i+1+"번째 재료 : ");
+						inputString[i]= sc.next();
+						
+					}
+					time2 = dao.nowtime();// 게임 끝날때 시간
+
+					System.out.println(dao.sumscore(inputString, mdto));
+					
+					dao.elapse_time(time1, time2); // 경과 시간 출력
 
 					
 				}else {
